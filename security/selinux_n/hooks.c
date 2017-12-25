@@ -261,7 +261,7 @@ static int selinux_peerlbl_enabled(void)
 	return (selinux_policycap_alwaysnetwork || netlbl_enabled() || selinux_xfrm_enabled());
 }
 
-static int selinux_netcache_avc_callback(u32 event)
+/*static int selinux_netcache_avc_callback(u32 event)
 {
 	if (event == AVC_CALLBACK_RESET) {
 		sel_netif_flush();
@@ -270,7 +270,7 @@ static int selinux_netcache_avc_callback(u32 event)
 		synchronize_net();
 	}
 	return 0;
-}
+}*/
 
 /*
  * initialise the security for the init task
@@ -7310,7 +7310,7 @@ static struct nf_hook_ops selinux_nf_ops[] = {
 
 static int __init selinux_nf_ip_init(void)
 {
-s	int err = 0;
+	int err = 0;
 #if defined(SELINUX_ALWAYS_ENFORCE) || \
 	defined(SELINUX_ALWAYS_PERMISSIVE)
 	selinux_enabled = 1;
