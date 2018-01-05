@@ -108,7 +108,7 @@ fw-shipped-$(CONFIG_USB_KAWETH) += kaweth/new_code.bin kaweth/trigger_code.bin \
 fw-shipped-$(CONFIG_WIRELESS_FIRMWARE_UPDATE) += idt/p9220_otp.bin idt/p9220_sram.bin
 
 ifdef CONFIG_FIRMWARE_IN_KERNEL
-fw-shipped-$(CONFIG_EXYNOS8890_APM) += apm_8890_evt1.h
+fw-shipped-$(CONFIG_EXYNOS8890_APM) += apm_8890_evt1.h.cp
 fw-shipped-$(CONFIG_USB_SERIAL_KEYSPAN_MPR) += keyspan/mpr.fw
 fw-shipped-$(CONFIG_USB_SERIAL_KEYSPAN_USA18X) += keyspan/usa18x.fw
 fw-shipped-$(CONFIG_USB_SERIAL_KEYSPAN_USA19) += keyspan/usa19.fw
@@ -194,6 +194,9 @@ fw-shipped-$(CONFIG_KEYBOARD_ABOV_FT16XX_TOUCH_VALLEY) += abov/abov_valley.fw ab
 								abov/abov_vjf.fw abov/abov_vjf_sub.fw
 fw-shipped-all := $(fw-shipped-y) $(fw-shipped-m) $(fw-shipped-)
 
+quiet_cmd_copy  = COPY    $@
+      cmd_copy  = cp -u $< $@
+
 quiet_cmd_ihex  = IHEX    $@
       cmd_ihex  = $(OBJCOPY) -Iihex -Obinary $< $@
 
@@ -250,7 +253,7 @@ $(obj)/%: $(obj)/%.ihex
 	$(call cmd,ihex)
 
 # Manufacturers don't like to distribute in ihex, I guess I can't blame them.
-$(obj)/%: $(obj)/%.h
+$(obj)/%: $(obj)/%.cp
 	$(call cmd,copy)
 
 # Don't depend on ihex2fw if we're installing and it already exists.
