@@ -58,7 +58,9 @@
 #include <asm/uaccess.h>
 
 /* platform specific definitions */
-/* ex) #define __ANDROID__ */
+#ifndef __ANDROID__
+#define __ANDROID__
+#endif
 
 /* platform specific pre-processing */
 #define CONN_GADGET_SHORTNAME "android_ssusbcon"
@@ -1266,4 +1268,5 @@ struct android_usb_function conn_gadget_function = {
 };
 /* End DEVGURU ***************************************************************/
 #endif
+
 
